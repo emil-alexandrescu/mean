@@ -33,3 +33,14 @@ a:hover .header-profile-image {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
 }
+
+/* custom style sheet */
+ul.sidebar-menu li ul.sub li.active a{
+  background-color: #2f323a;
+}
+
+#sidebar{
+  overflow: hidden;
+  outline: none;
+  margin-left: 0px;
+}

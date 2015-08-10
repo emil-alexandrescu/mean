@@ -1,0 +1,11 @@
+{% extends 'layout.server.view.html' %}
+
+{% block layout_content %}
+<header data-ng-include="'/modules/core/views/header.client.view.html'" class="header black-bg"></header>
+<aside data-ng-include="'/modules/core/views/sidebar.client.view.html'"></aside>
+<section id="main-content">
+  <section class="wrapper">
+    {% block content %}{% endblock %}
+  </section>
+</section>
+{% endblock %}
