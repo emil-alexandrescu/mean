@@ -35,8 +35,9 @@ a:hover .header-profile-image {
 }
 
 /* custom style sheet */
-ul.sidebar-menu li ul.sub li.active a{
+ul.sidebar-menu li ul.sub li a.active{
   background-color: #2f323a;
+  color: #4ECDC4;
 }
 
 #sidebar{

@@ -14,13 +14,15 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     $scope.toggleCollapsibleMenu = function () {
       $scope.isCollapsed = !$scope.isCollapsed;
     };
-
     // Collapsing the menu after navigation
     $scope.$on('$stateChangeSuccess', function () {
       $scope.isCollapsed = false;
       if (Authentication.user){
+        //destry bg from login
         $.backstretch('destroy', false);
         $('.backstretch').remove();
+
+        //setup sidebar accordion
         if (!$('#nav-accordion').hasClass('accordion-setup')){
           $('#nav-accordion').addClass('accordion-setup').dcAccordion({
             eventType: 'click',

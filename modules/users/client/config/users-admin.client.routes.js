@@ -5,33 +5,29 @@ angular.module('users.admin.routes').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
       .state('admin.users', {
+        abstract: true,
         url: '/users',
+        template: '<ui-view/>'
+      })
+      .state('admin.users.list', {
+        url: '',
         templateUrl: 'modules/users/views/admin/user-list.client.view.html',
-        controller: 'UserListController'
+        controller: 'UserController'
       })
-      .state('admin.user', {
-        url: '/users/:userId',
+      .state('admin.users.create', {
+        url: '/create',
+        templateUrl: 'modules/users/views/admin/user-create.client.view.html',
+        controller: 'UserController'
+      })
+      .state('admin.users.view', {
+        url: '/:userId',
         templateUrl: 'modules/users/views/admin/user.client.view.html',
-        controller: 'UserController',
-        resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
-        }
+        controller: 'UserController'
       })
-      .state('admin.user-edit', {
-        url: '/users/:userId/edit',
+      .state('admin.users.edit', {
+        url: '/:userId/edit',
         templateUrl: 'modules/users/views/admin/user-edit.client.view.html',
-        controller: 'UserController',
-        resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
-        }
+        controller: 'UserController'
       });
   }
 ]);

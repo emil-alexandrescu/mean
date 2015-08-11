@@ -9,7 +9,12 @@ module.exports = {
         'public/assets/font-awesome/css/font-awesome.css',
         'public/assets/js/gritter/css/jquery.gritter.css',
         'public/assets/css/style.css',
-        'public/assets/css/style-responsive.css'
+        'public/assets/css/style-responsive.css',
+        'public/lib/datatables/media/css/jquery.dataTables.css',
+        'public/assets/js/advanced-datatable/media/css/DT_bootstrap.css',
+        //libs
+        'public/lib/alertify.js/themes/alertify.core.css',
+        'public/lib/alertify.js/themes/alertify.bootstrap.css'
       ],
       js: [
         //dashio
@@ -29,7 +34,9 @@ module.exports = {
         'public/lib/angular-ui-utils/ui-utils.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/angular-file-upload/angular-file-upload.js',
-        'public/lib/lodash/lodash.js'
+        'public/lib/lodash/lodash.js',
+        'public/lib/alertify.js/lib/alertify.js',
+        'public/lib/datatables/media/js/jquery.dataTables.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
