@@ -23,7 +23,9 @@
     "angular": true,
     "io": true,
     "ApplicationConfiguration": true,
-    "$": true
+    "$": true,
+    "_": true,
+    "alertify": true
   },
   "predef": [ // Extra globals.
     "inject",
