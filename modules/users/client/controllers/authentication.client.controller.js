@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication',
-  function ($scope, $state, $http, $location, $window, Authentication) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', '$timeout',
+  function ($scope, $state, $http, $location, $window, Authentication, $timeout) {
     $scope.authentication = Authentication;
 
     // Get an eventual error defined in the URL query string:
@@ -47,5 +47,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       // Effectively call OAuth authentication route:
       $window.location.href = url + (redirect_to ? '?redirect_to=' + encodeURIComponent(redirect_to) : '');
     };
+
+    //draw background
+    $timeout(function(){
+      $.backstretch('/assets/img/login-bg.jpg', {speed: 500});
+    });
   }
 ]);

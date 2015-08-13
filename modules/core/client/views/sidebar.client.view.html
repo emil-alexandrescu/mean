@@ -1,0 +1,34 @@
+<div data-ng-controller="HeaderController">
+<div id="sidebar" class="nav-collapse" data-ng-if="authentication.user">
+  <ul class="sidebar-menu" id="nav-accordion" data-ng-if="menu.shouldRender(authentication.user);">
+    <p class="centered"><a href="profile.html"><img data-ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="img-circle" width="80" height="80"></a></p>
+    <h5 class="centered" data-ng-bind="authentication.user.displayName"></h5>
+
+    <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.type" data-ng-class="{ mt: $first, 'sub-menu': item.type === 'dropdown' }" class="{{item.class}}">
+      <a href ng-switch-when="dropdown"><i class="fa" data-ng-class="item.icon"></i> <span>{{::item.title}}</span></a>
+      <ul ng-switch-when="dropdown" class="sub">
+        <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" data-ui-sref-active="active">
+          <a data-ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
+        </li>
+      </ul>
+      <a ng-switch-default data-ui-sref="{{item.state}}"><i class="fa" data-ng-class="item.icon"></i> <span>{{::item.title}}</span></a>
+    </li>
+    <li class="sub-menu">
+      <a href>
+        <i class="fa fa-user"></i> <span data-ng-bind="'Account Settings'"></span>
+      </a>
+      <ul class="sub">
+        <li data-ui-sref-active="active">
+          <a data-ui-sref="settings.profile">Edit Profile</a>
+        </li>
+        <li data-ui-sref-active="active">
+          <a data-ui-sref="settings.picture">Change Profile Picture</a>
+        </li>
+        <li data-ui-sref-active="active" data-ng-show="authentication.user.provider === 'local'">
+          <a data-ui-sref="settings.password">Change Password</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</div>

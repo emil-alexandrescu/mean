@@ -2,55 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-  <base href="/">
-  <title>{{title}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{{description}}">
-  <meta name="fragment" content="!">
+  <link rel="shortcut icon" href="{{url}}{{favicon}}">
 
-  <!-- Apple META -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  <!-- Facebook META -->
-  <meta property="fb:app_id" content="{{facebookAppId}}">
-  <meta property="og:site_name" content="{{title}}">
-  <meta property="og:title" content="{{title}}">
-  <meta property="og:description" content="{{description}}">
-  <meta property="og:url" content="{{url}}">
-  <meta property="og:image" content="{{url}}{{logo}}">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter META -->
-  <meta name="twitter:title" content="{{title}}">
-  <meta name="twitter:description" content="{{description}}">
-  <meta name="twitter:url" content="{{url}}">
-  <meta name="twitter:image" content="{{url}}modules/core/img/brand/logo.png">
-
-  <!-- Fav Icon -->
-  <link href="{{url}}{{favicon}}" rel="shortcut icon" type="image/x-icon">
-
+  <title>{{title}}</title>
+  <base href="/">
   <!-- Application CSS Files -->
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+ 
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
-
 <body class="ng-cloak">
-  <header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-  <section class="content">
-    <section class="container">
-      {% block content %}{% endblock %}
-    </section>
-  </section>
+<section id="container">
+  {% block layout_content %}{% endblock %}
+</section>
+  
 
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{ user | json | safe }};
   </script>
   
-  <!--Load The Socket.io File-->
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
 
@@ -59,5 +36,4 @@
   <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
   {% endif %}
 </body>
-
 </html>

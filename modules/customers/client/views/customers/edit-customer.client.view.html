@@ -1,0 +1,36 @@
+<section data-ng-controller="CustomersController" data-ng-init="findOne()">
+  <h3>Edit Customer</h3>
+  <div data-ng-show="error" class="alert alert-danger">
+    <strong data-ng-bind="error"></strong>
+  </div>
+  <div class="row mt">
+    <div class="col-lg-12">
+      <form name="customerForm" class="form-horizontal" data-ng-submit="update()" novalidate>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="first_name">First Name</label>
+          <div class="col-sm-10">
+            <input name="first_name" type="text" class="form-control" data-ng-model="customer.first_name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="last_name">Last Name</label>
+          <div class="col-sm-10">
+            <input name="last_name" type="text" class="form-control" data-ng-model="customer.last_name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="company">Company</label>
+          <div class="col-sm-10">
+            <input name="company" type="text" class="form-control" data-ng-model="customer.company" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button class="btn btn-theme">Update</button>
+            <a data-ui-sref="customers.view({customerId: customer._id})">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

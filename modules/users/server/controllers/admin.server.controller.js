@@ -15,6 +15,26 @@ exports.read = function (req, res) {
   res.json(req.model);
 };
 
+
+/**
+ * Create a new User
+ */
+exports.create = function (req, res) {
+  var user = new User(req.body);
+
+  user.provider = 'local';
+
+  user.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(user);
+    }
+  });
+};
+
 /**
  * Update a User
  */
@@ -24,8 +44,13 @@ exports.update = function (req, res) {
   //For security purposes only merge these parameters
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
+  user.email = req.body.email;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
+
+  if (req.body.password){
+    user.password = req.body.password;
+  }
 
   user.save(function (err) {
     if (err) {
@@ -59,7 +84,7 @@ exports.delete = function (req, res) {
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({'roles': 'user'}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
