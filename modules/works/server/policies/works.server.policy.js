@@ -15,22 +15,22 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['user', 'admin'],
     allows: [{
-      resources: '/api/customers',
+      resources: '/api/materials',
       permissions: '*'
     }, {
-      resources: '/api/customers/:customerId',
+      resources: '/api/materials/:materialId',
       permissions: '*'
     }, {
-      resources: '/api/customers/:customerId/addresses',
+      resources: '/api/girths',
       permissions: '*'
     }, {
-      resources: '/api/customers/:customerId/addresses/:addressId',
+      resources: '/api/girths/:girthId',
       permissions: '*'
     }, {
-      resources: '/api/customers/:customerId/contact_info',
+      resources: '/api/prices',
       permissions: '*'
     }, {
-      resources: '/api/customers/:customerId/contact_info/:contact_infoId',
+      resources: '/api/prices/:materialId/:girthId',
       permissions: '*'
     }
     ]

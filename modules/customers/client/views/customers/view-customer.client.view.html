@@ -1,12 +1,72 @@
 <section data-ng-controller="CustomersController" data-ng-init="findOne()">
-  <div class="row mt content-panel">
+  <div class="row">
     <div class="col-lg-12">
-      <h3>{{customer.first_name}} {{customer.last_name}} ({{customer.company}})</h3>
+      <h3><i class="fa fa-angle-right"></i> 
+        {{customer.first_name}} {{customer.last_name}} ({{customer.company}})
+        <a data-ui-sref="customers.edit({customerId: customer._id})" class="btn btn-primary btn-xs" ><i class="fa fa-pencil"></i></a>
+        <button class="btn btn-danger btn-xs" data-ng-click="remove()"><i class="fa fa-trash-o"></i></button>
+        <a data-ui-sref="customers.list" class="btn btn-theme btn-xs">Back To List</a>
+      </h3>
     </div>
+  </div>
+  
+  <div class="row mt" data-ng-controller="AddressController" data-ng-init="find()">
     <div class="col-lg-12">
-      <a data-ui-sref="customers.edit({customerId: customer._id})" class="btn btn-theme" >Edit</a>
-      <button class="btn btn-danger" data-ng-click="remove()">Delete</button>
-      <a data-ui-sref="customers.list">Back to List</a>
+      <div class="content-panel">
+        <h4><i class="fa fa-angle-right"></i> Address <a data-ui-sref="customers.address.create({customerId: customer._id})" class="btn btn-success" ><i class="fa fa-plus"></i> Create New</a></h4>
+        <hr />
+        <table class="table table-hover" data-ng-if="addresses.$resolved && addresses.length">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="addr in addresses">
+            <td>{{addr.index}}</td>
+            <td>{{addr.name}}</td>
+            <td>{{addr.address}}</td>
+            <td><a class="btn btn-primary btn-xs" data-ui-sref="customers.address.edit({customerId: customer._id, addressId: addr._id})"><i class="fa fa-pencil"></i></a> <a class="btn btn-danger btn-xs" ng-click="remove(addr)"><i class="fa fa-trash-o"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="alert alert-warning text-center" data-ng-if="addresses.$resolved && !addresses.length">
+          No address yet, why don't you <a data-ui-sref="customers.address.create({customerId: customer._id})">create one</a>?
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt" data-ng-controller="ContactInfoController" data-ng-init="find()">
+    <div class="col-lg-12">
+      <div class="content-panel">
+        <h4><i class="fa fa-angle-right"></i> Contact Information <a data-ui-sref="customers.contact_info.create({customerId: customer._id})" class="btn btn-success" ><i class="fa fa-plus"></i> Create New</a></h4>
+        <hr />
+        <table class="table table-hover" data-ng-if="contact_infoes.$resolved && contact_infoes.length">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Contact Type</th>
+            <th>Value</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="ci in contact_infoes">
+            <td>{{ci.index}}</td>
+            <td>{{ci.contact_type}}</td>
+            <td>{{ci.contact_value}}</td>
+            <td><a class="btn btn-primary btn-xs" data-ui-sref="customers.contact_info.edit({customerId: customer._id, contact_infoId: ci._id})"><i class="fa fa-pencil"></i></a> <a class="btn btn-danger btn-xs" ng-click="remove(ci)"><i class="fa fa-trash-o"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="alert alert-warning text-center" data-ng-if="contact_infoes.$resolved && !contact_infoes.length">
+          No contact information yet, why don't you <a data-ui-sref="customers.contact_info.create({customerId: customer._id})">create one</a>?
+        </div>
+      </div>
     </div>
   </div>
 </section>

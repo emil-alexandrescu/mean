@@ -13,11 +13,8 @@ var mongoose = require('mongoose'),
  */
 var ContactInfoSchema = new Schema({
   'contact_type': {
-    type: [{
-      type: String,
-      enum: ['email', 'fax', 'phone']
-    }],
-    default: ['email'],
+    type: String,
+    default: 'email',
     required: 'Please fill in contact type'
   },
   'contact_value': {

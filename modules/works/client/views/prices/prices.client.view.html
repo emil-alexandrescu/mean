@@ -1,0 +1,30 @@
+<div class="row mt" data-ng-controller="PricesController" data-ng-init="find()">
+  <div class="col-lg-12">
+    <div class="content-panel">
+      <h4><i class="fa fa-angle-right"></i> Price Table <a href ng-click="saveAll()" class="btn btn-success">Update Price</a></h4>
+      <hr />
+      <table class="table table-bordered table-striped table-condensed cf" data-ng-if="materials.$resolved && materials.length && girths.$resolved && girths.length">
+        <thead class="cf">
+        <tr>
+          <th>Material</th>
+          <th ng-repeat="girth in girths">{{girth.size}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(materialId, priceRow) in priceTable">
+          <td>{{materials[materialId].title}}</td>
+          <td ng-repeat="(girthId, price) in priceRow" >
+            <input type="text" class="form-control" ng-model="priceTable[materialId][girthId].price" ng-blur="touchPrice(materialId, girthId)">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-warning text-center" data-ng-if="materials.$resolved && !materials.length">
+        No material yet, why don't you <a data-ui-sref="materials.create">create one</a>?
+      </div>
+      <div class="alert alert-warning text-center" data-ng-if="girths.$resolved && !girths.length">
+        No girth yet, why don't you <a data-ui-sref="girths.create">create one</a>?
+      </div>
+    </div>
+  </div>
+</div>

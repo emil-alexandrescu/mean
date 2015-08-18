@@ -1,0 +1,29 @@
+<div class="row mt" data-ng-controller="GirthsController" data-ng-init="find()">
+  <div class="col-lg-12">
+    <div class="content-panel">
+      <h4><i class="fa fa-angle-right"></i> Girths <a data-ui-sref="girths.create" class="btn btn-success" ><i class="fa fa-plus"></i> Add</a></h4>
+      <hr />
+      <table class="table table-hover" data-ng-if="girths.$resolved && girths.length">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Size</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="girth in girths">
+          <td>{{girth.index}}</td>
+          <td>{{girth.size}}</td>
+          <td>{{girth.description}}</td>
+          <td><a class="btn btn-primary btn-xs" data-ui-sref="girths.edit({girthId: girth._id})"><i class="fa fa-pencil"></i></a> <a class="btn btn-danger btn-xs" ng-click="remove(girth)"><i class="fa fa-trash-o"></i></a></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-warning text-center" data-ng-if="girths.$resolved && !girths.length">
+        No girth yet, why don't you <a data-ui-sref="girths.create">create one</a>?
+      </div>
+    </div>
+  </div>
+</div>

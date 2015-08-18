@@ -62,10 +62,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         $scope.users = _.map(data, function(d, index){
           return [
             index+1,
-            '<a href="/admin/users/'+d._id+'">' + d.firstName + ' ' + d.lastName + '</a>',
+            '<a data-ui-sref="admin.users.view({userId: \''+d._id+'\'})">' + d.firstName + ' ' + d.lastName + '</a>',
             d.email,
             d.roles,
-            '<a class="btn btn-primary btn-xs" href="/admin/users/'+d._id+'/edit"><i class="fa fa-pencil"></i></a>'
+            '<a class="btn btn-primary btn-xs" data-ui-sref="admin.users.edit({userId: \''+d._id+'\'})"><i class="fa fa-pencil"></i></a>'
           ];
         });
       });

@@ -1,16 +1,18 @@
 'use strict';
 
 // Data table directive
-angular.module(ApplicationConfiguration.applicationModuleName).directive('datatable', [
-  function () {
+angular.module(ApplicationConfiguration.applicationModuleName).directive('datatable', ['$compile',
+  function ($compile) {
     return {
       restrict: 'AE',
       scope: {
         tableConfig: '=?',
-        tableData: '='
+        tableData: '=',
+        tableScope: '=?'
       },
       link: function(scope, element, attrs){
         scope.tableConfig = scope.tableConfig || {};
+        scope.tableScope = scope.tableScope || scope;
         scope.tableConfig = _.extend(scope.tableConfig, {
           'searching' : true,
           'info': false,
@@ -28,6 +30,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).directive('datata
           }
         });
 
+        $(element).on('draw.dt', function(){
+          $(this).find('tr').each(function(index){
+            var html = $(this).html();
+            $(this).empty().append($compile(html)(scope.tableScope));
+          });
+        });
       }
     };
   }

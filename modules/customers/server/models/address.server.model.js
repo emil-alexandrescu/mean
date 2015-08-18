@@ -12,6 +12,16 @@ var mongoose = require('mongoose'),
  * Address Schema
  */
 var AddressSchema = new Schema({
+  'first_name': {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  'last_name': {
+    type: String,
+    trim: true,
+    default: ''
+  },
   'street_line1': {
     type: String,
     trim: true,
