@@ -1,0 +1,27 @@
+<div class="row mt" data-ng-controller="DrawingsController" data-ng-init="find()">
+  <div class="col-lg-12">
+    <div class="content-panel">
+      <h4><i class="fa fa-angle-right"></i> Drawings <a data-ui-sref="drawings.create" class="btn btn-success" ><i class="fa fa-plus"></i> Add</a></h4>
+      <hr />
+      <table class="table table-hover" data-ng-if="drawings.$resolved && drawings.length">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="drawing in drawings">
+          <td>{{drawing.index}}</td>
+          <td><a ui-sref="drawings.edit({drawingId: drawing._id})">{{drawing.title}}</a></td>
+          <td><a class="btn btn-primary btn-xs" data-ui-sref="drawings.edit({drawingId: drawing._id})"><i class="fa fa-pencil"></i></a> <a class="btn btn-danger btn-xs" ng-click="remove(drawing)"><i class="fa fa-trash-o"></i></a></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-warning text-center" data-ng-if="drawings.$resolved && !drawings.length">
+        No drawing yet, why don't you <a data-ui-sref="drawings.create">create one</a>?
+      </div>
+    </div>
+  </div>
+</div>

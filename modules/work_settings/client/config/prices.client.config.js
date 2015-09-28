@@ -1,9 +1,9 @@
 'use strict';
 
 // Configuring the Customers module
-angular.module('works.prices').run(['Menus',
+angular.module('work_settings.prices').run(['Menus',
   function (Menus) {
-    Menus.addSubMenuItem('topbar', 'works', {
+    Menus.addSubMenuItem('topbar', 'work_settings', {
       title: 'Price Table',
       state: 'prices'
     });

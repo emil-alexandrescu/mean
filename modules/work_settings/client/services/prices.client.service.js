@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('works.prices').factory('Prices', ['$resource',
+angular.module('work_settings.prices').factory('Prices', ['$resource',
   function ($resource) {
     var resource = $resource('api/prices/:materialId/:girthId', {
     	materialId: '@material',

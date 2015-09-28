@@ -1,7 +1,7 @@
 'use strict';
 
 // Setting up route
-angular.module('works.girths').config(['$stateProvider',
+angular.module('work_settings.girths').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
     	.state('girths', {
@@ -14,15 +14,15 @@ angular.module('works.girths').config(['$stateProvider',
       })
       .state('girths.list', {
         url: '',
-        templateUrl: 'modules/works/views/girths/list-girths.client.view.html'
+        templateUrl: 'modules/work_settings/views/girths/list-girths.client.view.html'
       })
       .state('girths.create', {
         url: '/create',
-        templateUrl: 'modules/works/views/girths/create-girth.client.view.html'
+        templateUrl: 'modules/work_settings/views/girths/create-girth.client.view.html'
       })
       .state('girths.edit', {
         url: '/:girthId/edit',
-        templateUrl: 'modules/works/views/girths/edit-girth.client.view.html'
+        templateUrl: 'modules/work_settings/views/girths/edit-girth.client.view.html'
       });
   }
 ]);

@@ -36,7 +36,8 @@ module.exports = {
         'public/lib/angular-file-upload/angular-file-upload.js',
         'public/lib/lodash/lodash.js',
         'public/lib/alertify.js/lib/alertify.js',
-        'public/lib/datatables/media/js/jquery.dataTables.js'
+        'public/lib/datatables/media/js/jquery.dataTables.js',
+        'public/lib/fabric/dist/fabric.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

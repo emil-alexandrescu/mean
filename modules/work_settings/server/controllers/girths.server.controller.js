@@ -5,105 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Material = mongoose.model('Material'),
+  Girth = mongoose.model('Girth'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 
 /**
- * Create a material
+ * Create a girth
  */
 exports.create = function (req, res) {
-  var material = new Material(req.body);
+  var girth = new Girth(req.body);
 
-  material.save(function (err) {
+  girth.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(material);
+      res.json(girth);
     }
   });
 };
 
 
 /**
- * Show the current material
+ * Show the current girth
  */
 exports.read = function (req, res) {
-  res.json(req.material);
+  res.json(req.girth);
 };
 
 
 /**
- * Update a material
+ * Update a girth
  */
 exports.update = function (req, res) {
-  var material = req.material;
-  material.title = req.body.title;
-  material.description = req.body.description;
+  var girth = req.girth;
+  girth.size = req.body.size;
+  girth.description = req.body.description;
 
-  material.save(function (err) {
+  girth.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(material);
+      res.json(girth);
     }
   });
 };
 
 /**
- * List of Materials
+ * List of Girths
  */
 exports.list = function (req, res) {
-  Material.find({}).sort('created').populate('material').exec(function (err, materials) {
+  Girth.find({}).sort('size').populate('girth').exec(function (err, girths) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
 
-    res.json(materials);
+    res.json(girths);
   });
 };
 
 
 /**
- * Delete a Material
+ * Delete a Girth
  */
 exports.delete = function (req, res) {
-  var material = req.material;
+  var girth = req.girth;
 
-  material.remove(function (err) {
+  girth.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
 
-    res.json(material);
+    res.json(girth);
   });
 };
 
 /**
- * Material middleware
+ * Girth middleware
  */
-exports.materialById = function (req, res, next, id) {
+ function girthById(req, res, next, id){
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Material is invalid'
+      message: 'Girth is invalid'
     });
   }
 
-  Material.findById(id).exec(function (err, material) {
+  Girth.findById(id).exec(function (err, girth) {
     if (err) {
       return next(err);
-    } else if (!material) {
-      return next(new Error('Failed to load material ' + id));
+    } else if (!girth) {
+      return next(new Error('Failed to load girth ' + id));
     }
-    req.material = material;
+    req.girth = girth;
     next();
   });
+}
+exports.girthById = function (req, res, next, id) {
+  return girthById(req, res, next, id);
 };
+
+exports.girthByBodyId = function (req, res, next) {
+  return girthById(req, res, next, req.body.girthId);
+};
+

@@ -25,7 +25,10 @@
     "ApplicationConfiguration": true,
     "$": true,
     "_": true,
-    "alertify": true
+    "jQuery": true,
+    "fabric": true,
+    "alertify": true,
+    "DRAW": true
   },
   "predef": [ // Extra globals.
     "inject",

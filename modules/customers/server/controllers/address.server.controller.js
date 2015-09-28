@@ -71,14 +71,12 @@ exports.update = function (req, res) {
  * List of Address for a customer
  */
 exports.list = function (req, res) {
-
   Address.find({customer: req.customer}).sort('-created').populate('address').exec(function (err, addresses) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-
     res.json(addresses);
   });
 };
@@ -102,9 +100,9 @@ exports.delete = function (req, res) {
 };
 
 /**
- * User middleware
+ * Address middleware
  */
-exports.addressById = function (req, res, next, id) {
+ function addressById(req, res, next, id){
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'Address is invalid'
@@ -120,4 +118,13 @@ exports.addressById = function (req, res, next, id) {
     req.address = address;
     next();
   });
+}
+
+exports.addressById = function (req, res, next, id) {
+  return addressById(req, res, next, id);
 };
+
+exports.addressByBodyId = function (req, res, next) {
+  return addressById(req, res, next, req.body.addressId);
+};
+

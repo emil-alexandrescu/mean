@@ -59,13 +59,26 @@ exports.update = function (req, res) {
  * List of Customers
  */
 exports.list = function (req, res) {
-  Customer.find({}).sort('-created').populate('customer', 'displayName').exec(function (err, customers) {
+  var query = req.query.q || '';
+  Customer.find({
+    $or: [
+      {
+        first_name: new RegExp(query, 'i')
+      },
+      {
+        last_name: new RegExp(query, 'i')
+      },
+      {
+        company: new RegExp(query, 'i')
+      }
+    ]
+  }).sort('-created').populate('customer', 'displayName').exec(function (err, customers) {
     if (err) {
+      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-
     res.json(customers);
   });
 };
@@ -89,9 +102,9 @@ exports.delete = function (req, res) {
 };
 
 /**
- * User middleware
+ * Customer middleware
  */
-exports.customerById = function (req, res, next, id) {
+function customerById(req, res, next, id){
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'Customer is invalid'
@@ -107,4 +120,12 @@ exports.customerById = function (req, res, next, id) {
     req.customer = customer;
     next();
   });
+}
+exports.customerById = function (req, res, next, id) {
+  return customerById(req, res, next, id);
 };
+
+exports.customerByBodyId = function (req, res, next) {
+  return customerById(req, res, next, req.body.customerId);
+};
+

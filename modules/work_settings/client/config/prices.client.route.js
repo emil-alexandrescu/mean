@@ -1,12 +1,12 @@
 'use strict';
 
 // Setting up route
-angular.module('works.prices').config(['$stateProvider',
+angular.module('work_settings.prices').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
     	.state('prices', {
         url: '/prices',
-        templateUrl: 'modules/works/views/prices/prices.client.view.html',
+        templateUrl: 'modules/work_settings/views/prices/prices.client.view.html',
         data: {
           roles: ['user', 'admin']
         }

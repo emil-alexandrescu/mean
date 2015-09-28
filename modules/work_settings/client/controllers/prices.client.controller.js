@@ -1,15 +1,15 @@
 'use strict';
 
 // Prices controller
-angular.module('works.prices').controller('PricesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Prices', '$state', 'Materials', 'Girths', '$q',
+angular.module('work_settings.prices').controller('PricesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Prices', '$state', 'Materials', 'Girths', '$q',
   function ($scope, $stateParams, $location, Authentication, Prices, $state, Materials, Girths, $q) {
     $scope.authentication = Authentication;
 
     // Create new Price
-    $scope.create = function (materialId, girthId, price) {
+    $scope.create = function (materialId, girthId, value) {
       // Create new Price object
       var price = new Prices({
-        price: price,
+        price: value,
         material: materialId,
         girth: girthId
       });
@@ -37,11 +37,11 @@ angular.module('works.prices').controller('PricesController', ['$scope', '$state
         material: materialId,
         girth: girthId
       });
-      var newPrice = $scope.priceTable[materialId][girthId].price
+      var newPrice = $scope.priceTable[materialId][girthId].price;
       if (_.isUndefined(result)){
         $scope.create(materialId, girthId, newPrice);
       }else{
-        if (newPrice != result.price){
+        if (newPrice !== result.price){
           result.price = newPrice;
           $scope.update(result);  
         }

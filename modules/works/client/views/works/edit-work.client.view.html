@@ -1,0 +1,124 @@
+<section data-ng-controller="WorksController" data-ng-init="findOne()">
+  <h3>Edit Work</h3>
+  <div data-ng-show="error" class="alert alert-danger">
+    <strong data-ng-bind="error"></strong>
+  </div>
+  <div class="row mt">
+    <div class="col-lg-12">
+      <form name="workForm" class="form-horizontal" data-ng-submit="update()" novalidate>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="title">Title</label>
+          <div class="col-sm-10">
+            <input name="title" type="text" class="form-control" data-ng-model="work.title" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="description">Description</label>
+          <div class="col-sm-10">
+            <input name="description" type="text" class="form-control" data-ng-model="work.description" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="order_number">Order Number</label>
+          <div class="col-sm-10">
+            <input name="order_number" type="text" class="form-control" data-ng-model="work.order_number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="customer">Customer</label>
+          <div class="col-sm-6">
+            <input name="customer" type="text" class="form-control" data-ng-model="customerName" typeahead="customer.name for customer in getCustomers($viewValue)" typeahead-wait-ms="300" typeahead-min-length="1" typeahead-loading="loadingCustomers" typeahead-no-results="noCustomers" typeahead-on-select="onSelectCustomer($item, $model, $label)" placeholder="Start typing customer name" />
+            <i ng-show="loadingCustomers" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="noCustomers">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span ng-show="customer">
+              <strong><a ui-sref="customers.view({customerId: customer})" tabindex="-1">{{ customerName }}</a></strong> <a href tabindex="-1" ng-click="clearCustomer()">x</a>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="address">Address</label>
+          <div class="col-sm-6">
+            <input name="address" type="text" class="form-control" data-ng-model="addressName" typeahead="address.name for address in getAddresses($viewValue)" typeahead-wait-ms="300" typeahead-min-length="1" typeahead-loading="loadingAddresses" typeahead-no-results="noAddresses" typeahead-on-select="onSelectAddress($item, $model, $label)" placeholder="Start typing address"/>
+            <i ng-show="loadingAddresses" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="noAddresses">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+            <div ng-show="!customer">
+              <i class="glyphicon glyphicon-remove"></i> Choose customer first
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span ng-show="address">
+              <strong><a ui-sref="customers.address.edit({customerId: customer, addressId: address})" tabindex="-1">{{addressName}}</a></strong> <a href tabindex="-1" ng-click="clearAddress()">x</a>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="drawing">Drawing</label>
+          <div class="col-sm-6">
+            <input name="drawing" type="text" class="form-control" data-ng-model="drawingName" typeahead="drawing.title for drawing in getDrawings($viewValue)" typeahead-wait-ms="300" typeahead-min-length="1" typeahead-loading="loadingDrawing" typeahead-no-results="noDrawings" typeahead-on-select="onSelectDrawing($item, $model, $label)" placeholder="Start typing drawing name" />
+            <a ui-sref="drawings.create">Create a new drawing</a>
+            <i ng-show="loadingDrawings" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="noDrawings">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span ng-show="drawing">
+              <strong><a ui-sref="drawings.edit({drawingId: drawing})" tabindex="-1">{{drawingName}}</a></strong> <a href tabindex="-1" ng-click="clearDrawing()">x</a>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="req_date">Request Date</label>
+          <div class="col-sm-10">
+            <input name="req_date" type="text" class="form-control" data-ng-model="work.req_date" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="delivery_charge">Delivery Charge</label>
+          <div class="col-sm-10">
+            <input name="delivery_charge" type="text" class="form-control" data-ng-model="work.delivery_charge" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="price">Price</label>
+          <div class="col-sm-10">
+            <input name="price" type="text" class="form-control" data-ng-model="work.price" placeholder="Price in numeric" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="tax">Tax</label>
+          <div class="col-sm-10">
+            <input name="tax" type="text" class="form-control" data-ng-model="work.tax" placeholder="Tax in percentage" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="status">Status</label>
+          <div class="col-sm-10">
+            <input name="status" type="text" class="form-control" data-ng-model="work.status" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="order_or_quote">Order Or Quote</label>
+          <div class="col-sm-10">
+            <select class="form-control" data-ng-model="work.order_or_quote">
+              <option value="order">order</option>
+              <option value="quote">quote</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button class="btn btn-theme">Update</button>
+            <a href class="btn btn-danger" ng-click="remove()">Delete</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

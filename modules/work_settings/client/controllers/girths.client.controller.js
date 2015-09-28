@@ -1,7 +1,7 @@
 'use strict';
 
 // Girths controller
-angular.module('works.girths').controller('GirthsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Girths', '$state',
+angular.module('work_settings.girths').controller('GirthsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Girths', '$state',
   function ($scope, $stateParams, $location, Authentication, Girths, $state) {
     $scope.authentication = Authentication;
 

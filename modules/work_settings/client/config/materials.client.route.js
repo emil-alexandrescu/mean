@@ -1,7 +1,7 @@
 'use strict';
 
 // Setting up route
-angular.module('works.materials').config(['$stateProvider',
+angular.module('work_settings.materials').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
     	.state('materials', {
@@ -14,15 +14,15 @@ angular.module('works.materials').config(['$stateProvider',
       })
       .state('materials.list', {
         url: '',
-        templateUrl: 'modules/works/views/materials/list-materials.client.view.html'
+        templateUrl: 'modules/work_settings/views/materials/list-materials.client.view.html'
       })
       .state('materials.create', {
         url: '/create',
-        templateUrl: 'modules/works/views/materials/create-material.client.view.html'
+        templateUrl: 'modules/work_settings/views/materials/create-material.client.view.html'
       })
       .state('materials.edit', {
         url: '/:materialId/edit',
-        templateUrl: 'modules/works/views/materials/edit-material.client.view.html'
+        templateUrl: 'modules/work_settings/views/materials/edit-material.client.view.html'
       });
   }
 ]);

@@ -1,7 +1,7 @@
 'use strict';
 
 // Materials controller
-angular.module('works.materials').controller('MaterialsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Materials', '$state',
+angular.module('work_settings.materials').controller('MaterialsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Materials', '$state',
   function ($scope, $stateParams, $location, Authentication, Materials, $state) {
     $scope.authentication = Authentication;
 

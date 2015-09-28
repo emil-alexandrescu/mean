@@ -1,0 +1,125 @@
+<section data-ng-controller="DrawingsController" data-ng-init="init()">
+  <h3>New Drawing</h3>
+  <div data-ng-show="error" class="alert alert-danger">
+    <strong data-ng-bind="error"></strong>
+  </div>
+  <div class="row mt">
+    <div class="col-md-6">
+      <div class="content-panel plr-15">
+        <div data-ng-show="info" class="alert alert-info">
+          <strong data-ng-bind="info"></strong>
+        </div>
+        <canvas id="drawing-canvas" width="400" height="400" style="border:1px solid #ccc; width:100%;"></canvas>
+      </div>
+      <div class="content-panel plr-15 mt">
+        <form name="drawingForm" class="form-horizontal" data-ng-submit="create()" novalidate>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="title" class="control-label">Title</label>
+              <input name="title" type="text" class="form-control" data-ng-model="title" placeholder="Title" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="title" class="control-label">Girth</label>
+              <select data-ng-model="girth" class="form-control" data-ng-options="girth._id as girth.size for girth in girths"></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="title" class="control-label">Material</label>
+              <select data-ng-model="material" class="form-control" data-ng-options="material._id as material.title for material in materials"></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button class="btn btn-theme">Create</button>
+              <button class="btn btn-warning">Clear</button>
+              <a data-ui-sref="drawings.list">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="content-panel plr-15">
+        <div class="row">
+          <div class="col-xs-8">
+            <div class="form-group">
+              <input name="canvas_size" type="text" class="form-control" data-ng-model="body.canvas_size" placeholder="Canvas Size" />
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <button class="btn btn-theme" ng-click="draw()">Set Canvas Size</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="form-group">
+              <select class="form-control" data-ng-model="body.fold.type">
+                <optoin value="">None</optoin>
+                <option value="cf">Crush Fold</option>
+                <option value="f">Feather</option>
+                <option value="de">Drop Edge</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group">
+              <input name="crush_fold" type="text" class="form-control" data-ng-model="body.fold.length" placeholder="Fold Length" />
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <button class="btn btn-theme" ng-click="draw()">Set Fold</button>
+          </div>
+        </div>
+      </div>
+      <div class="content-panel plr-15 mt">
+        <div class="row mb">
+          <div class="col-xs-3">
+            <select class="form-control" data-ng-model="newLine.direction" id="direction" data-ng-options="key as value for (key,value) in directions">
+            </select>
+          </div>
+          <div class="col-xs-3">
+            <input type="text" class="form-control" data-ng-model="newLine.angle" placeholder="Angle" />
+          </div>
+          <div class="col-xs-3">
+            <input type="text" class="form-control" data-ng-model="newLine.length" placeholder="Length" data-ng-keydown="treatInput($event)" />
+          </div>
+          <div class="col-xs-3">
+            <button class="btn btn-theme" data-ng-click="addLine()">{{editing===-1?'Add':'Edit'}} Line</button>
+          </div>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr><th>Bends: {{body.lines.length || 0}}</th></tr>
+            <tr><th>Total Length: {{length}}</th></tr>
+          </thead>
+        </table>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Line #</th>
+              <th>Direction</th>
+              <th>Angle</th>
+              <th>Length</th>
+              <th><button class="btn btn-primary btn-xs" ng-click="startLine()"><i class="fa fa-plus"></i></button></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="line in body.lines">
+              <td>Line {{$index + 1}}</td>
+              <td>{{directions[line.direction]}}</td>
+              <td>{{line.angle}}</td>
+              <td>{{line.length}}</td>
+              <td>
+                <a class="btn btn-primary btn-xs" ng-click="editLine($index)"><i class="fa fa-pencil"></i></a> 
+                <a class="btn btn-danger btn-xs" ng-click="removeLine($index)"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
