@@ -14,7 +14,10 @@ module.exports = {
         'public/assets/js/advanced-datatable/media/css/DT_bootstrap.css',
         //libs
         'public/lib/alertify.js/themes/alertify.core.css',
-        'public/lib/alertify.js/themes/alertify.bootstrap.css'
+        'public/lib/alertify.js/themes/alertify.bootstrap.css',
+        'public/lib/select2/dist/css/select2.css',
+        'public/lib/ag-grid/dist/ag-grid.css',
+        'public/lib/ag-grid/dist/theme-fresh.css'
       ],
       js: [
         //dashio
@@ -37,7 +40,9 @@ module.exports = {
         'public/lib/lodash/lodash.js',
         'public/lib/alertify.js/lib/alertify.js',
         'public/lib/datatables/media/js/jquery.dataTables.js',
-        'public/lib/fabric/dist/fabric.min.js'
+        'public/lib/fabric/dist/fabric.min.js',
+        'public/lib/select2/dist/js/select2.js',
+        'public/lib/ag-grid/dist/ag-grid.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

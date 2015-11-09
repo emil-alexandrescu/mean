@@ -1,0 +1,70 @@
+<div class="drawing-panel">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-xs-4 control-label" for="title">Thickness</label>
+        <div class="col-xs-8">
+          <input name="thickness" type="text" class="form-control" data-ng-model="thickness" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-xs-4 control-label" for="title">Material</label>
+        <div class="col-xs-8">
+          <input name="thickness" type="text" class="form-control" data-ng-model="material" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-xs-4 control-label" for="title">Girth</label>
+        <div class="col-xs-8">
+          <input name="thickness" type="text" class="form-control" data-ng-model="girth" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-xs-4 control-label" for="title">Bends</label>
+        <div class="col-xs-8">
+          <input name="thickness" type="text" class="form-control" data-ng-model="bends" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <canvas class="drawing-canvas border">
+      </canvas>
+    </div>
+    <div class="col-sm-4">
+      <table class="table table-bordered table-condensed"> 
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Length</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input name="thickness" type="text" class="form-control"/></td>
+            <td><input name="thickness" type="text" class="form-control"/></td>
+            <td><input name="thickness" type="text" class="form-control"/></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total l/m: <b>8.99</b></td>
+          </tr>
+          <tr>
+            <td colspan="3">Total $: <b>71.92</b></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

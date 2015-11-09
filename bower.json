@@ -16,7 +16,8 @@
     "angular-ui-router": "~0.2",
     "angular-file-upload": "1.1.5",
     "fabric": "1.5.0",
-    "select2": "4.0.0"
+    "select2": "4.0.0",
+    "ag-grid": "~2.3.5"
   },
   "resolutions": {
     "angular": "~1.3"

@@ -5,3 +5,7 @@ h3 .back-link{
 .left-align-form.form-horizontal .control-label{
 	text-align: right;
 }
+
+.select2-customer {
+	width: 250px;
+}

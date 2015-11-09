@@ -2,3 +2,74 @@
 	padding-left: 15px;
 	padding-right: 15px;
 }
+
+.container-small {
+	margin: 0 auto;
+	max-width: 900px;
+}
+
+.mt30 {
+	margin-top: 30px;
+}
+
+.canvas-container {
+	position:relative;
+	width: 100%;
+}
+
+.canvas-container:before {
+	content: "";
+	display: block;
+	padding-top:100%;
+}
+
+.drawing-canvas {
+	position:absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.table-wrapper {
+	position: relative;;
+	width: 100%;
+}
+
+.table-wrapper:before {
+	content: "";
+	display: block;
+	padding-top: 200%;
+}
+
+.table-padded {
+	position:absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.border {
+	border: 1px solid gray;
+}
+
+.drawing-panel {
+	padding: 15px;
+	margin-bottom: 15px;
+	background-color: #fff;	
+}
+
+.selected .drawing-panel {
+	background-color: #ddd;
+}
+
+td .form-control{
+	padding: 0;
+	height: auto;
+	text-align: right;
+}
+
+.table-condensed > tbody > tr > td {
+	padding: 2px;
+}
