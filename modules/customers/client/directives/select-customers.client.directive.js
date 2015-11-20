@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('customers').directive('selectCustomers', [
-  function () {
+angular.module('customers').directive('selectCustomers', ['Customers',
+  function (Customers) {
     return {
       restrict: 'A',
       scope: {
-        customer: '='
+        customer: '=',
+        defaultValue: '='
       },
       link: function (scope, element, attrs) {
         $(element).select2({
@@ -30,16 +31,30 @@ angular.module('customers').directive('selectCustomers', [
           minimumInputLength: 0,
           templateResult: function(customer) {
             if (customer.loading) return customer.text;
-            return customer.first_name + ' ' + customer.last_name + ' (' + customer.company + ')';
+            return Customers.makeFullName(customer);
           },
           templateSelection: function(customer) {
-            return customer.first_name + ' ' + customer.last_name + ' (' + customer.company + ')';
+            if (customer.text) return customer.text;
+            return Customers.makeFullName(customer);
           }
-        }).on('change', function(){
-          scope.$apply(function() {
-            scope.customer = $(this).val();  
-          }.bind(this));
-        });
+      });
+
+      scope.$watch('defaultValue', function(nv, ov){
+          if (nv !== ov && nv && _.isObject(nv)){
+              var $option = $('<option selected></option>').val(nv._id).text(Customers.makeFullName(nv));
+              $(element).append($option).trigger('change');
+          }
+      }, true);
+
+      $(element).on('change', function(){
+          var val = $(this).val();
+          if (val !== scope.customer) {
+              scope.$apply(function() {
+                  scope.customer = val;
+              }.bind(this));
+          }
+      });
+
       }
     };
   }

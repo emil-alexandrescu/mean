@@ -6,11 +6,19 @@ angular.module('works').directive('drawing', ['$timeout',
       restrict: 'AE',
       scope: {
         workId: '=',
-        drawingBody:'=',
-        command: '='
+        command: '=',
+        drawingBody: '='
       },
       templateUrl: 'modules/works/views/drawing.client.directive.view.html',
       link: function (scope, element, attrs) {
+
+        //funcs
+        scope.createLength = function(index) {
+            if (index === scope.lengths.length - 1) {
+                scope.lengths.push({});
+            }
+        };
+
         var PI = 3.1416;
         var _lineDirections = {
           t: 270,
@@ -28,7 +36,6 @@ angular.module('works').directive('drawing', ['$timeout',
         var points = [];
         var angles = [];
         var deltaAngles = [];
-        var body = scope.drawingBody;
         var commands;
         var offset;
         var maxSize;
@@ -39,18 +46,21 @@ angular.module('works').directive('drawing', ['$timeout',
         var canvasSize;
 
         $timeout(function(){
-          init();
+            scope.bends = 0;
+            scope.girth = 0;
+            scope.lengths = [{}];
+            init();
         });
 
         scope.$watch('command', function(nv, ov){
           if (nv!=ov && nv){
             draw();
           }
-          if (nv === '' && canvas){
+          if (nv == '' && canvas){
             _clearAll();
           }
         });
-        
+
         // ======
         // public funcs
         // ======
@@ -66,6 +76,20 @@ angular.module('works').directive('drawing', ['$timeout',
           fabric.Object.prototype.originY = 'top';
           canvas =  new fabric.Canvas($el[0], options);
 
+          if (scope.drawingBody) {
+             scope.bends = scope.drawingBody.bends;
+             scope.girth = scope.drawingBody.girth;
+             if (_.isArray(scope.drawingBody.lengths) && scope.drawingBody.lengths.length){
+                scope.lengths = _.map(scope.drawingBody.lengths, function(l) {
+                    return l?l:{};
+                });
+             }
+             scope.command = scope.drawingBody.command;
+             if (scope.command){
+                draw();
+             }
+          }
+
           _initEvents();
         }
 
@@ -73,15 +97,31 @@ angular.module('works').directive('drawing', ['$timeout',
           _clearAll();
           commands = _parseCommand(scope.command);
           var counter = 0;
-          do{
-            _getPointsArray();
-            _getCanvasSize();
-            counter++;
-          }while (!_checkMinGirth() && counter<5);
+          // do{
+          _getPointsArray();
+          _getCanvasSize();
+          //   counter++;
+          // }while (!_checkMinGirth() && counter<5);
           _draw();
+
+          //get girths
+          scope.girth = _.reduce(commands, function(sum, c) {
+            return sum + c.girth*1;
+          }, 0);
+
+          scope.bends = _.reduce(commands, function(sum, c) {
+            return sum + (c.cf == 'c'?2:1);
+          }, -1);
+          if (scope.bends < 0) scope.bends = 0;
+
+          scope.drawingBody = _.extend(scope.drawingBody, {
+              girth: scope.girth,
+              bends: scope.bends,
+              lengths: scope.lengths
+          });
         }
 
-        // ====== 
+        // ======
         // private funcs
         // ======
         // command: ([direction][D/F][angle][.][girth])*
@@ -137,20 +177,21 @@ angular.module('works').directive('drawing', ['$timeout',
           deltaAngles = [];
           commands = [];
           fabricObjs = [];
-          body = {};
+          scope.bends = 0;
+          scope.girth = 0;
         }
 
         function _initEvents(){
-          //TODO: define mouse drag event for drawing arrow  
+          //TODO: define mouse drag event for drawing arrow
         }
-        
+
         function _draw(){
           var tmpPoints = _.clone(points).reverse();
           _.each(commands, function(c, index){
             var p1 = _convert(tmpPoints[index]);
             var p2 = _convert(tmpPoints[index+1]);
             var girthText = ((c.girthText * 1) || c.girth.toFixed(0)).toString() + (c.girthTextSuffix?c.girthTextSuffix:'');
-            
+
             //draw folds
             switch (c.cf) {
               case 'c':

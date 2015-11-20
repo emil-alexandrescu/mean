@@ -1,12 +1,14 @@
-<section data-ng-controller="WorksController">
+<section data-ng-controller="WorksController" data-ng-init="findOne()">
   <div class="container-small form-horizontal">
     <div class="form-inline">
       <h3>Flashing New Work
-      <select class="form-control" data-ng-model="order_or_quote">
+      <select class="form-control" data-ng-model="work.order_or_quote">
         <option value="order">order</option>
         <option value="quote">quote</option>
       </select>
-      &nbsp;&nbsp;&nbsp;&nbsp;# <input name="order_number" type="text" class="form-control" data-ng-model="order_number" />
+      &nbsp;&nbsp;&nbsp;&nbsp;# <input name="order_number" type="text" class="form-control" data-ng-model="work.order_number" />
+      &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" ng-click="addDrawings()">+ Add drawings</button>
+      <button class="btn btn-success" ng-click="save()">Save</button>
       </h3>
     </div>
     <p>Date in: <b>2015/10/10</b></p>
@@ -15,7 +17,7 @@
         <div class="form-group row">
           <label class="col-sm-4 control-label" for="title">Customer:</label>
           <div class="col-sm-8">
-            <select select-customers class="form-control" customer="customer"></select>
+            <select select-customers class="form-control" customer="work.customer" default-value="defaultValues.customer"></select>
           </div>
         </div>
       </div>
@@ -25,7 +27,7 @@
         <div class="form-group row">
           <label class="col-sm-4 control-label" for="title">Bill To:</label>
           <div class="col-sm-8">
-            <select select-address class="form-control" customer="customer" address="address"></select>
+            <select select-address class="form-control" customer="work.customer" address="work.bill_address" default-value="defaultValues.bill_address"></select>
           </div>
         </div>
       </div>
@@ -33,7 +35,7 @@
         <div class="form-group row">
           <label class="col-sm-4 control-label" for="title">Ship To:</label>
           <div class="col-sm-8">
-            <select select-address class="form-control" customer="customer" address="address"></select>
+            <select select-address class="form-control" customer="work.customer" address="work.ship_address" default-value="defaultValues.ship_address"></select>
           </div>
         </div>
       </div>
@@ -41,9 +43,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group row">
-          <label class="col-sm-4 control-label" for="title">PO#:</label>
+          <label class="col-sm-4 control-label" for="po">PO#:</label>
           <div class="col-sm-8">
-            <input name="po" type="text" class="form-control" data-ng-model="po" />
+            <input name="po" type="text" class="form-control" data-ng-model="work.po" />
           </div>
         </div>
       </div>
@@ -51,15 +53,15 @@
         <div class="form-group row">
           <label class="col-sm-4 control-label" for="title">Date Req#:</label>
           <div class="col-sm-8">
-            <input name="date_req" type="text" class="form-control" data-ng-model="date_req" />
+            <input name="req_date" type="text" class="form-control" data-ng-model="work.req_date" />
           </div>
         </div>
       </div>
 
       <!-- start of drawing section -->
       <div class="row">
-        <div class="col-md-6 selected" ng-click="selectDrawing()">
-          <div drawing work-id="test" drawing-body="testbody" command="command"></div>
+        <div class="col-md-6" ng-repeat="drawing in drawings" ng-click="selectDrawing($index)" ng-class="{selected: $index==currentIndex}">
+          <div drawing work-id="$index" drawing-body="drawing" command="drawing.command"></div>
         </div>
       </div>
     </div>

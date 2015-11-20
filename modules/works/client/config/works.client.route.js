@@ -22,7 +22,7 @@ angular.module('works').config(['$stateProvider',
       })
       .state('works.edit', {
         url: '/:workId/edit',
-        templateUrl: 'modules/works/views/works/edit-work.client.view.html'
+        templateUrl: 'modules/works/views/works/create-work.client.view.html'
       });
   }
 ]);

@@ -4,19 +4,12 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  crypto = require('crypto'),
-  validator = require('validator');
+  Schema = mongoose.Schema;
 
 /*
  * Work Schema
  */
 var WorkSchema = new Schema({
-  title: {
-    type: String,
-    trim: true,
-    default: '',
-  },
   description: {
     type: String,
     trim: true,
@@ -34,21 +27,29 @@ var WorkSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Customer'
   },
-  address: {
+  bill_address: {
     type: Schema.ObjectId,
     ref: 'Address'
   },
-  delivery_charge: {
+  ship_address: {
+    type: Schema.ObjectId,
+    ref: 'Address'
+  },
+  sub_total: {
     type: Number,
     default: 0
   },
-  price: {
+  total: {
     type: Number,
     default: 0
   },
   tax: {
     type: Number,
     default: 0
+  },
+  po: {
+    type: String,
+    default: ''
   },
   status: {
     type: String,
@@ -60,9 +61,8 @@ var WorkSchema = new Schema({
     trim: true,
     default: 'order'
   },
-  drawing: {
-    type: Schema.ObjectId,
-    ref: 'Drawing'
+  drawings: {
+    type: Schema.Types.Mixed
   },
   updated: {
     type: Date

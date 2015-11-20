@@ -41,7 +41,7 @@
       </canvas>
     </div>
     <div class="col-sm-4">
-      <table class="table table-bordered table-condensed"> 
+      <table class="table table-bordered table-condensed">
         <thead>
           <tr>
             <th>#</th>
@@ -50,10 +50,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><input name="thickness" type="text" class="form-control"/></td>
-            <td><input name="thickness" type="text" class="form-control"/></td>
-            <td><input name="thickness" type="text" class="form-control"/></td>
+          <tr ng-repeat="len in lengths">
+            <td><input type="text" class="form-control" ng-model="len.count" ng-focus="createLength($index)" /></td>
+            <td><input type="text" class="form-control" ng-model="len.len" ng-focus="createLength($index)" /></td>
+            <td><input type="text" class="form-control" ng-focus="createLength($index)" /></td>
           </tr>
         </tbody>
         <tfoot>
